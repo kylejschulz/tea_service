@@ -41,7 +41,23 @@ RSpec.configure do |config|
 
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
+def make_teas
+  Tea.delete_all
+  Subscription.delete_all
+  Customer.delete_all
+  SubscriptionTea.delete_all
+  CustomerSubscription.delete_all
 
+  10.times do
+    FactoryBot.create :tea
+    FactoryBot.create :subscription
+    FactoryBot.create :customer
+  end
+end
+
+def self.parse(response)
+  JSON.parse(response.body, symbolize_names: true)
+end
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.

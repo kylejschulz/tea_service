@@ -1,3 +1,10 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  namespace :api do
+    namespace :v1 do
+      get '/customers/:customer_id/subscriptions', to: 'customer_subscriptions#index'
+      put '/customers/:customer_id/subscriptions/:subscription_id', to: 'customer_subscriptions#update'
+      post '/customers/:customer_id/subscriptions/:subscription_id', to: 'customer_subscriptions#create'
+      resources :customers, only: [:index]
+    end
+  end
 end
