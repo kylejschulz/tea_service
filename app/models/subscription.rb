@@ -1,9 +1,14 @@
 class Subscription < ApplicationRecord
-  has_many :customersubscriptions
-  has_many :customers, through: :customersubscriptions
+  validates_presence_of :title,
+                        :price,
+                        :status,
+                        :frequency
 
-  has_many :subscriptionteas
-  has_many :teas, through: :subscriptionteas
+  has_many :customer_subscriptions
+  has_many :customers, through: :customer_subscriptions
 
-  enum status: [:active, :cancelled]
+  has_many :subscription_teas
+  has_many :teas, through: :subscription_teas
+
+  enum status: [:cancelled, :active]
 end
