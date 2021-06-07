@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       put '/customers/:customer_id/subscriptions/:subscription_id', to: 'customer_subscriptions#update'
       post '/customers/:customer_id/subscriptions/:subscription_id', to: 'customer_subscriptions#create'
       resources :customers, only: [:index]
+      resources :subscriptions, only: [:index, :show]
     end
   end
 end

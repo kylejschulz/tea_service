@@ -55,7 +55,7 @@ def make_teas
   end
 end
 
-def self.parse(response)
+def parse(response)
   JSON.parse(response.body, symbolize_names: true)
 end
   # RSpec Rails can automatically mix in different behaviours to your tests
@@ -69,6 +69,12 @@ end
   #       # ...
   #     end
   #
+  Shoulda::Matchers.configure do |config|
+    config.integrate do |with|
+      with.test_framework :rspec
+      with.library :rails
+    end
+  end
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!

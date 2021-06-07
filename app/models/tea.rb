@@ -1,7 +1,12 @@
 class Tea < ApplicationRecord
-  has_many :subscriptionteas
-  has_many :subscriptions, through: :subscriptionteas
+  validates_presence_of :title,
+                        :description,
+                        :temperature,
+                        :brew_time
 
-  has_many :customers, through: :subscriptions 
+  has_many :subscription_teas
+  has_many :subscriptions, through: :subscription_teas
+
+  has_many :customers, through: :subscriptions
 
 end

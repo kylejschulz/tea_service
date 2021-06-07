@@ -8,7 +8,7 @@ RSpec.describe Tea, type: :model do
     it { should validate_presence_of(:brew_time)}
   end
   describe "relationships" do
-    it { should have_many(:subscriptionteas) }
-    it { should have_many(:subscriptions).through(:subscriptionteas) }
+    it { should have_many :subscription_teas }
+    it { should have_many(:subscriptions).through(:subscription_teas) }
   end
 end
