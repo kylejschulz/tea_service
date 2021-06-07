@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "customer subscriptions index request" do
+RSpec.describe "unique customer teas index request" do
   before :each do
     make_teas
     @customer = Customer.first
@@ -16,8 +16,8 @@ RSpec.describe "customer subscriptions index request" do
   end
 
   describe "happy path" do
-    it "can return in about all the customers subscriptions, active and cancelled" do
-      get "/api/v1/customers/#{@customer.id}/subscriptions"
+    it "can return all the unique teas for a given customer" do
+      get "/api/v1/customers/#{@customer.id}/teas"
       expect(@response).to be_successful
       response = parse(@response)
       require "pry"; binding.pry
