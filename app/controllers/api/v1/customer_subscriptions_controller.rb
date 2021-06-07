@@ -10,7 +10,7 @@ class Api::V1::CustomerSubscriptionsController < ApplicationController
   end
 
   def create
-    subscription = CustomerSubscription.new(customer_id: customer_subscriptions_param[:customer_id], subscription_id:customer_subscription_params[:subscription_id])
+    subscription = CustomerSubscription.new(customer_id: customer_subscription_params[:customer_id], subscription_id:customer_subscription_params[:subscription_id])
     if subscription.save
       render json: CustomerSubscriptionSerializer.new(subscription), status: 201
     else

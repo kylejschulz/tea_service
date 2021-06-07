@@ -7,7 +7,8 @@ class Customer < ApplicationRecord
   has_many :customer_subscriptions
   has_many :subscriptions, through: :customer_subscriptions
 
-  has_many :teas, through: :subscriptions
+  has_many :subscription_teas
+  has_many :teas, through: :subscription_teas
 
   def filtered_subscriptions(params)
     # validate_params(params)
@@ -39,6 +40,16 @@ class Customer < ApplicationRecord
 
     subscriptions.where('brew_time < ? AND status = ?', brew_time, filter_time)
 
+  end
+
+  def unique_teas
+
+    teas = subscriptions.flat_map do |sub|
+      sub.teas
+    end
+    teas.uniq
+    # subscriptions.joins(:teas).distinct
+    # Tea.joins(subscriptions: :customers)
   end
 
   # def validate_params?(params)

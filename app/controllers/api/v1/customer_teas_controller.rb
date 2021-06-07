@@ -1,14 +1,12 @@
 class Api::V1::CustomerTeasController < ApplicationController
   def index
-    require "pry"; binding.pry
-    customer = Customer.find(customer_params)
-        teas = Customer.all
-    require "pry"; binding.pry
+    customer = Customer.find(customer_params[:customer_id])
+    teas = customer.unique_teas
 
-    if customers
-      render json: CustomerSerializer.new(customers), status: 200
+    if teas
+      render json: TeaSerializer.new(teas), status: 200
     else
-      render json: {data: { error: "no customers available"}}, status: 400
+      render json: {data: { error: "no teas available"}}, status: 400
     end
   end
 
