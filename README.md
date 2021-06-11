@@ -1,5 +1,13 @@
 # Tea Subscription Service - Back End API
 
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [Running the tests](#running-the-tests)
+- [Endpoints](#endpoints)
+- [Built With](#built-with)
+- [Authors](#authors)
+- 
 ## About this Project
 This application exposes an API for serving for signing up customers with monthly tea subscriptions.
 
@@ -8,14 +16,6 @@ This application exposes an API for serving for signing up customers with monthl
 |    [GitHub](https://github.com/kylejschulz) |
 [LinkedIn](https://www.linkedin.com/in/kyle-schulz-204056209/)
 
-
-## Table of Contents
-
-- [Getting Started](#getting-started)
-- [Running the tests](#running-the-tests)
-- [Endpoints](#endpoints)
-- [Built With](#built-with)
-- [Authors](#authors)
 
 ### Prerequisites
 
