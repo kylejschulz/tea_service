@@ -1,4 +1,54 @@
 # Tea Subscription Service
+# Nomadic Nibbler - Back End API
+
+## About this Project
+This application exposes an API for serving foodtruck information and geolocation radius information to an associated front end application.
+
+## Authors
+- **Kyle Schulz**
+|    [GitHub](https://github.com/kylejschulz) |
+[LinkedIn](https://www.linkedin.com/in/kyle-schulz-204056209/)
+
+
+## Table of Contents
+
+- [Getting Started](#getting-started)
+- [Running the tests](#running-the-tests)
+- [Endpoints](#endpoints)
+- [Built With](#built-with)
+- [Authors](#authors)
+
+### Prerequisites
+
+To run this application you will need Ruby 2.5.3 and Rails 5.2.5
+
+## Getting Started
+
+To get the web application running:
+
+1. Clone this repo
+```
+git@github.com:NomadicNibbler/foodtruck_be.git
+```
+
+2. Install gem packages: `bundle install`
+
+3. Create and Migrate DB
+```
+$rails db:{create,migrate}
+```
+
+4. Start your server!
+```
+$ rails s
+```
+
+## Running the tests
+
+```
+bundle exec rspec
+```
+
 ### Endpoints
 HTTP verbs  | Path                                                               | Use
 ----------- | ------------------------------------------------------------------ |-------------------------------------------
