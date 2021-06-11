@@ -54,7 +54,9 @@ HTTP verbs  | Path                                                              
 POST        | /api/v1/customers/:customer_id/subscriptions/:subscription_id      | Subscribe a customer to a tea subscription
 PATCH/PUT   | /api/v1/customers/:customer_id/subscriptions/:subscription_id      | Cancel a customer's tea subscription
 GET         | /api/v1/customers/:customer_id/subscriptions                       | See all a customer's subscriptions
-GET         | /api/v1/customers/:customer_id/teas                               | See all a customer's unique teas
+GET         | /api/v1/customers/:customer_id/subscriptions/?status=cancelled     | See all a customer's subscriptions filtered by status
+GET         | /api/v1/customers/:customer_id/subscriptions/?brew_time_filter=2   | See all a customer's subscriptions filtered by teas that have that brew time
+GET         | /api/v1/customers/:customer_id/teas                                | See all a customer's unique teas
 ##### Subscribe a Customer to a Tea Subscription
 POST `http://localhost:3000/api/v1/customers/:customer_id/subscriptions/:subscription_id`,
 
@@ -114,6 +116,26 @@ response:
             "price": "6.50"
             "status": "Active"
             "frequency": "4"
+        }
+    }]
+}
+```
+
+##### See All a Customer's Subscriptions Filtered by Active
+GET `http://localhost:3000/api/v1/customers/1/subscriptions?status=active`
+response:
+```
+{
+    "data": [{
+        "id": "2",
+        "type": "subscription",
+        "attributes": {
+            "id": "2",
+            "title": "Green"
+            "price": "6.50"
+            "status": "Active"
+           <img width="1530" alt="Screen Shot 2021-06-11 at 12 06 24 PM" src="https://user-images.githubusercontent.com/54863905/121716034-90a7c880-caad-11eb-8984-dd002bdc9073.png">
+ "frequency": "4"
         }
     }]
 }
