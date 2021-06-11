@@ -7,7 +7,7 @@
 - [Endpoints](#endpoints)
 - [Built With](#built-with)
 - [Authors](#authors)
-- 
+
 ## About this Project
 This application exposes an API for serving for signing up customers with monthly tea subscriptions.
 
