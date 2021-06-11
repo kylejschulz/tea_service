@@ -169,3 +169,5 @@ response:
 }
 ```
 ### Database Schema
+Screen Shot 2021-06-11 at 12.06.24 PM.png![image](https://user-images.githubusercontent.com/54863905/121716247-cba9fc00-caad-11eb-82e8-907286f806f2.png)
+
