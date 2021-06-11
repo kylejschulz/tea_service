@@ -1,8 +1,7 @@
-# Tea Subscription Service
-# Nomadic Nibbler - Back End API
+# Tea Subscription Service - Back End API
 
 ## About this Project
-This application exposes an API for serving foodtruck information and geolocation radius information to an associated front end application.
+This application exposes an API for serving for signing up customers with monthly tea subscriptions.
 
 ## Authors
 - **Kyle Schulz**
@@ -28,7 +27,7 @@ To get the web application running:
 
 1. Clone this repo
 ```
-git@github.com:NomadicNibbler/foodtruck_be.git
+https://github.com/kylejschulz/tea_service
 ```
 
 2. Install gem packages: `bundle install`
@@ -55,6 +54,7 @@ HTTP verbs  | Path                                                              
 POST        | /api/v1/customers/:customer_id/subscriptions/:subscription_id      | Subscribe a customer to a tea subscription
 PATCH/PUT   | /api/v1/customers/:customer_id/subscriptions/:subscription_id      | Cancel a customer's tea subscription
 GET         | /api/v1/customers/:customer_id/subscriptions                       | See all a customer's subscriptions
+GET         | /api/v1/customers/:customer_id/teas                               | See all a customer's unique teas
 ##### Subscribe a Customer to a Tea Subscription
 POST `http://localhost:3000/api/v1/customers/:customer_id/subscriptions/:subscription_id`,
 
@@ -114,6 +114,34 @@ response:
             "price": "6.50"
             "status": "Active"
             "frequency": "4"
+        }
+    }]
+}
+```
+
+##### See All a Customer's Unique Teas
+GET `http://localhost:3000/api/v1/customers/1/teas`
+response:
+```
+{
+    "data": [{
+        "id": "1",
+        "type": "tea",
+        "attributes": {
+            "id": "1",
+            "title": "Earl Grey"
+            "description": "very light earl greay from puerto rico"
+            "temperature": "87"
+            "brew_time": "2"
+        },
+        "id": "2",
+        "type": "tea",
+        "attributes": {
+            "id": "2",
+            "title": "Green"
+            "description": "Earthy tea form southeastern china"
+            "temperature": "85"
+            "brew_time": "4"
         }
     }]
 }
