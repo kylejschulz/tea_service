@@ -7,8 +7,7 @@ class Customer < ApplicationRecord
   has_many :customer_subscriptions
   has_many :subscriptions, through: :customer_subscriptions
 
-  has_many :subscription_teas
-  has_many :teas, through: :subscription_teas
+  has_many :teas, through: :subscriptions
 
   def filtered_subscriptions(params)
     # validate_params(params)
@@ -26,19 +25,19 @@ class Customer < ApplicationRecord
 
   def brew_time(brew_time)
     filter_time = brew_time
-    subscriptions.where('brew_time < ?', filter_time)
+    teas.where('brew_time < ?', filter_time)
   end
 
   def status_filter(status)
     filter = status
-    subscriptions.where('status = ?', filter)
+    subscriptions.where(status: filter)
   end
 
   def brew_time_and_status(brew_time, status)
     filter_time = brew_time
     filter = status
 
-    subscriptions.where('brew_time < ? AND status = ?', brew_time, filter_time)
+    subscriptions.where('brew_time =< ? AND status = ?', brew_time, filter_time)
 
   end
 
