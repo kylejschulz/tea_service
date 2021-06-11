@@ -23,13 +23,22 @@ RSpec.describe "customer subscriptions create request" do
   end
 
   describe "it can return sad paths" do
-    xit "returns 42 when given empty string" do
+    it "returns 400 when given invalid customer ID" do
+      post "/api/v1/customers/11111/subscriptions/#{@subscription.id}"
+
+      expect(@response).to_not be_successful
+      expect(@response.status).to eq(400)
+      response = parse(@response)
+      expect(response).to eq({:data=>{:error=>"unable to subscribe"}})
     end
 
-    xit "returns 42 when given integers" do
-    end
+    it "returns 400 when given invalid subscription ID" do
+      post "/api/v1/customers/#{@customer.id}/subscriptions/11111111"
 
-    xit "returns 42 when given jumbled letters" do
+      expect(@response).to_not be_successful
+      expect(@response.status).to eq(400)
+      response = parse(@response)
+      expect(response).to eq({:data=>{:error=>"unable to subscribe"}})
     end
   end
 end

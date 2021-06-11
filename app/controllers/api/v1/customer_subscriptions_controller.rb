@@ -21,9 +21,12 @@ class Api::V1::CustomerSubscriptionsController < ApplicationController
   def update
     customer_subscription = CustomerSubscription.find_by(customer_id: customer_subscription_params[:customer_id], subscription_id:customer_subscription_params[:subscription_id])
     @subscription = customer_subscription.subscription
-
-    if @subscription.update(update_subscription_params)
-      render json: SubscriptionSerializer.new(@subscription), status: 200
+    if update_subscription_params[:status] == 'cancelled' || update_subscription_params[:status] == 'active'
+      if @subscription.update!(update_subscription_params)
+        render json: SubscriptionSerializer.new(@subscription), status: 200
+      else
+        render json: {data: { error: "Subscription cannot be updated"}}, status: 400
+      end
     else
       render json: {data: { error: "Subscription cannot be updated"}}, status: 400
     end

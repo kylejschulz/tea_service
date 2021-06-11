@@ -20,4 +20,25 @@ RSpec.describe "subscription show spec" do
       expect(response[:data][:attributes].keys).to eq([:title, :price, :status, :frequency])
     end
   end
+
+  describe "it can return sad paths" do
+    it "returns 404 when given integers" do
+      get "/api/v1/subscriptions/11111"
+
+      expect(@response).to_not be_successful
+      expect(@response.status).to eq(404)
+      response = parse(@response)
+      expect(response).to eq({:error=>"Couldn't find Subscription with 'id'=11111"})
+
+    end
+
+    it "returns 404 when given jumbled letters" do
+      get "/api/v1/subscriptions/ljhafljh"
+
+      expect(@response).to_not be_successful
+      expect(@response.status).to eq(404)
+      response = parse(@response)
+      expect(response).to eq({:error=>"Couldn't find Subscription with 'id'=ljhafljh"})
+    end
+  end
 end

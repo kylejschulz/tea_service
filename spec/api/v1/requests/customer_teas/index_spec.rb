@@ -26,31 +26,26 @@ RSpec.describe "unique customer teas index request" do
       expect(response[:data].first[:type]).to eq('tea')
       expect(response[:data].first[:attributes].keys).to eq([:title, :description, :temperature, :brew_time])
     end
-
-    # xit "can return all the data including for subscriptions that have been cancelled" do
-    #   put "/api/v1/customers/#{@customer.id}/subscriptions/#{@subscription_2}?status=cancelled"
-    #   get "/api/v1/customers/#{@customer.id}/subscriptions"
-    #   require "pry"; binding.pry
-    #   expect(@response).to be_successful
-    #   response = parse(@response)
-    #
-    #   expect(response[:data].count).to eq(3)
-    #   expect(response[:data].keys).to eq([:id, :type, :attributes])
-    #   expect(response[:data][:id]).to be_nil
-    #   expect(response[:data][:type]).to eq('image')
-    #   expect(response[:data][:attributes].keys).to eq([:image_url])
-    #   expect(response[:data][:attributes][:image_url]).to eq('https://www.flickr.com/photos/mudsharkalex/51142231625/')
-    # end
   end
 
   describe "it can return sad paths" do
-    xit "returns 42 when given empty string" do
+    it "returns 404 when given integers" do
+      get "/api/v1/customers/11111/teas"
+
+      expect(@response).to_not be_successful
+      expect(@response.status).to eq(404)
+      response = parse(@response)
+      expect(response).to eq({:error=>"Couldn't find Customer with 'id'=11111"})
+
     end
 
-    xit "returns 42 when given integers" do
-    end
+    it "returns 404 when given jumbled letters" do
+      get "/api/v1/customers/ljhafljh/teas"
 
-    xit "returns 42 when given jumbled letters" do
+      expect(@response).to_not be_successful
+      expect(@response.status).to eq(404)
+      response = parse(@response)
+      expect(response).to eq({:error=>"Couldn't find Customer with 'id'=ljhafljh"})
     end
   end
 end

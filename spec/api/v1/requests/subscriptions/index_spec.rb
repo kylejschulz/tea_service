@@ -25,4 +25,7 @@ RSpec.describe "subscription index spec" do
       expect(response[:data].first[:attributes].keys).to eq([:title, :price, :status, :frequency])
     end
   end
+  
+
+
 end

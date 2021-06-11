@@ -45,22 +45,21 @@ RSpec.describe "customer subscriptions create request" do
       expect(response).to eq({:data=>{:error=>"Subscription cannot be updated"}})
     end
 
-    xit "returns 422 when given integers" do
+    it "returns 400 when given integers" do
       put "/api/v1/customers/#{@customer.id}/subscriptions/#{@subscription_2.id}?status=1234"
-      require "pry"; binding.pry
 
       expect(@response).to_not be_successful
-      expect(@response.status).to eq(422)
+      expect(@response.status).to eq(400)
       response = parse(@response)
       expect(response).to eq({:data=>{:error=>"Subscription cannot be updated"}})
 
     end
 
-    xit "returns 422 when given jumbled letters" do
+    it "returns 400 when given jumbled letters for status" do
       put "/api/v1/customers/#{@customer.id}/subscriptions/#{@subscription_2.id}?status=sljsdfljkhdfs"
 
       expect(@response).to_not be_successful
-      expect(@response.status).to eq(422)
+      expect(@response.status).to eq(400)
       response = parse(@response)
       expect(response).to eq({:data=>{:error=>"Subscription cannot be updated"}})
     end
