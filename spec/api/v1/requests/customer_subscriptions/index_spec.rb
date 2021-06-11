@@ -12,7 +12,7 @@ RSpec.describe "customer subscriptions index request" do
     @subscription_2.teas << next_three
     @customer.subscriptions << @subscription_1
     @customer.subscriptions << @subscription_2
-    @subscription_2.status = 'cancelled'
+    @subscription_2.update!(status: 'cancelled')
   end
 
   describe "happy path" do
@@ -26,7 +26,7 @@ RSpec.describe "customer subscriptions index request" do
       expect(response[:data].first[:type]).to eq('subscription')
       expect(response[:data].first[:attributes].keys).to eq([:title, :price, :status, :frequency])
       expect(response[:data].first[:attributes][:status]).to eq("active")
-      # expect(response[:data].last[:attributes][:status]).to eq("cancelled")
+      expect(response[:data].last[:attributes][:status]).to eq("cancelled")
     end
   end
 
