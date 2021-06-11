@@ -3,7 +3,6 @@ class Api::V1::CustomersController < ApplicationController
     customers = Customer.all
 
     if customers
-      require "pry"; binding.pry
       render json: CustomerSerializer.new(customers), status: 200
     else
       render json: {data: { error: "no customers available"}}, status: 400

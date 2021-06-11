@@ -13,8 +13,9 @@ RSpec.describe "customer subscriptions create request" do
     @customer.subscriptions << @subscription_1
     @customer.subscriptions << @subscription_2
   end
+
   describe "happy path" do
-    it "can create a new subscription and return info about that subscription" do
+    it "can update an existing subscription and return info about that subscription" do
       expect(@subscription_2.status).to eq("active")
 
       put "/api/v1/customers/#{@customer.id}/subscriptions/#{@subscription_2.id}?status=cancelled"
@@ -28,7 +29,6 @@ RSpec.describe "customer subscriptions create request" do
       expect(response[:data][:attributes].keys).to eq([:title, :price, :status, :frequency])
       expect(response[:data][:attributes][:title]).to eq(@subscription_2.title)
       expect(response[:data][:attributes][:price]).to eq(@subscription_2.price)
-      expect(response[:data][:attributes][:status]).to eq(@subscription_2.status)
       expect(response[:data][:attributes][:status]).to eq('cancelled')
       expect(response[:data][:attributes][:frequency]).to eq(@subscription_2.frequency)
 
@@ -37,7 +37,7 @@ RSpec.describe "customer subscriptions create request" do
 
   describe "it can return sad paths" do
     it "returns 422 when given empty string" do
-      put "/api/v1/customers/#{@customer.id}/subscriptions/#{@subscription_2.id}?status="
+      put "/api/v1/customers/#{@customer.id}/subscriptions/#{@subscription_2.id}?status= "
 
       expect(@response).to_not be_successful
       expect(@response.status).to eq(400)
@@ -45,21 +45,21 @@ RSpec.describe "customer subscriptions create request" do
       expect(response).to eq({:data=>{:error=>"Subscription cannot be updated"}})
     end
 
-    it "returns 422 when given integers" do
+    it "returns 400 when given integers" do
       put "/api/v1/customers/#{@customer.id}/subscriptions/#{@subscription_2.id}?status=1234"
 
       expect(@response).to_not be_successful
-      expect(@response.status).to eq(422)
+      expect(@response.status).to eq(400)
       response = parse(@response)
       expect(response).to eq({:data=>{:error=>"Subscription cannot be updated"}})
 
     end
 
-    it "returns 422 when given jumbled letters" do
+    it "returns 400 when given jumbled letters for status" do
       put "/api/v1/customers/#{@customer.id}/subscriptions/#{@subscription_2.id}?status=sljsdfljkhdfs"
 
       expect(@response).to_not be_successful
-      expect(@response.status).to eq(422)
+      expect(@response.status).to eq(400)
       response = parse(@response)
       expect(response).to eq({:data=>{:error=>"Subscription cannot be updated"}})
     end

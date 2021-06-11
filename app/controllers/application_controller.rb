@@ -10,4 +10,3 @@ class ApplicationController < ActionController::API
     render json: { error: exception.message }, status: :not_found
   end
 end
-me

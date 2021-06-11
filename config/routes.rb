@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get '/customers/:customer_id/subscriptions', to: 'customer_subscriptions#index'
+      get '/customers/:customer_id/teas', to: 'customer_teas#index'
       put '/customers/:customer_id/subscriptions/:subscription_id', to: 'customer_subscriptions#update'
       post '/customers/:customer_id/subscriptions/:subscription_id', to: 'customer_subscriptions#create'
       resources :customers, only: [:index]

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "customer subscriptions index request" do
+RSpec.describe "unique customer teas index request" do
   before :each do
     make_teas
     @customer = Customer.first
@@ -16,23 +16,21 @@ RSpec.describe "customer subscriptions index request" do
   end
 
   describe "happy path" do
-    it "can return in about all the customers subscriptions, active and cancelled" do
-      get "/api/v1/customers/#{@customer.id}/subscriptions"
+    it "can return all the unique teas for a given customer" do
+      get "/api/v1/customers/#{@customer.id}/teas"
       expect(@response).to be_successful
       response = parse(@response)
-      expect(response[:data].count).to eq(2)
+      expect(response[:data].count).to eq(6)
       expect(response[:data].first.keys).to eq([:id, :type, :attributes])
       expect(response[:data].first[:id]).to be_a(String)
-      expect(response[:data].first[:type]).to eq('subscription')
-      expect(response[:data].first[:attributes].keys).to eq([:title, :price, :status, :frequency])
-      expect(response[:data].first[:attributes][:status]).to eq("active")
-      # expect(response[:data].last[:attributes][:status]).to eq("cancelled")
+      expect(response[:data].first[:type]).to eq('tea')
+      expect(response[:data].first[:attributes].keys).to eq([:title, :description, :temperature, :brew_time])
     end
   end
 
   describe "it can return sad paths" do
     it "returns 404 when given integers" do
-      get "/api/v1/customers/11111/subscriptions"
+      get "/api/v1/customers/11111/teas"
 
       expect(@response).to_not be_successful
       expect(@response.status).to eq(404)
@@ -42,7 +40,7 @@ RSpec.describe "customer subscriptions index request" do
     end
 
     it "returns 404 when given jumbled letters" do
-      get "/api/v1/customers/ljhafljh/subscriptions"
+      get "/api/v1/customers/ljhafljh/teas"
 
       expect(@response).to_not be_successful
       expect(@response.status).to eq(404)

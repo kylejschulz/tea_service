@@ -1,19 +1,19 @@
 class Api::V1::SubscriptionsController < ApplicationController
   def index
-    subscriptions = Subscriptions.all
+    subscriptions = Subscription.all
 
     if subscriptions
-      render json: SubscriptionsSerializer.new(subscriptions), status: 200
+      render json: SubscriptionSerializer.new(subscriptions), status: 200
     else
       render json: {data: { error: "no subscriptions available"}}, status: 400
     end
   end
 
   def show
-    subscription = Subscriptions.find(subscription_params[:id])
+    subscription = Subscription.find(subscription_params[:id])
 
     if subscription
-      render json: SubscriptionsSerializer.new(subscription), status: 200
+      render json: SubscriptionSerializer.new(subscription), status: 200
     else
       render json: {data: { error: "Subscription not found"}}, status: 400
     end

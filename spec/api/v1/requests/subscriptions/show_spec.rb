@@ -11,16 +11,34 @@ RSpec.describe "subscription show spec" do
   describe "happy path" do
     it "can show an already existing subscription" do
       get "/api/v1/subscriptions/#{@subscription.id}"
-      require "pry"; binding.pry
       expect(@response).to be_successful
       response = parse(@response)
-
       expect(response[:data].count).to eq(3)
       expect(response[:data].keys).to eq([:id, :type, :attributes])
-      expect(response[:data][:id]).to be_nil
-      expect(response[:data][:type]).to eq('image')
-      expect(response[:data][:attributes].keys).to eq([:image_url])
-      expect(response[:data][:attributes][:image_url]).to eq('https://www.flickr.com/photos/mudsharkalex/51142231625/')
+      expect(response[:data][:id]).to be_a(String)
+      expect(response[:data][:type]).to eq('subscription')
+      expect(response[:data][:attributes].keys).to eq([:title, :price, :status, :frequency])
+    end
+  end
+
+  describe "it can return sad paths" do
+    it "returns 404 when given integers" do
+      get "/api/v1/subscriptions/11111"
+
+      expect(@response).to_not be_successful
+      expect(@response.status).to eq(404)
+      response = parse(@response)
+      expect(response).to eq({:error=>"Couldn't find Subscription with 'id'=11111"})
+
+    end
+
+    it "returns 404 when given jumbled letters" do
+      get "/api/v1/subscriptions/ljhafljh"
+
+      expect(@response).to_not be_successful
+      expect(@response.status).to eq(404)
+      response = parse(@response)
+      expect(response).to eq({:error=>"Couldn't find Subscription with 'id'=ljhafljh"})
     end
   end
 end
